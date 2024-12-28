@@ -19,10 +19,15 @@ find_package(Armadillo REQUIRED)
 aux_source_directory(myInfer/source/base/ DIR_BASE)
 aux_source_directory(myInfer/source/tensor/ DIR_TENSOR)
 aux_source_directory(myInfer/source/op/ DIR_OP)
+aux_source_directory(myInfer/source/op/kernels/cpu DIR_KERNEL_CPU)
+aux_source_directory(myInfer/source/op/kernels/cuda DIR_KERNEL_CUDA)
+aux_source_directory(myInfer/source/op/kernels/ DIR_KERNEL)
+
+
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
-add_library(infer SHARED ${DIR_BASE} ${DIR_TENSOR} ${DIR_OP})
+add_library(infer SHARED ${DIR_BASE} ${DIR_TENSOR} ${DIR_OP} ${DIR_KERNEL_CPU} ${DIR_KERNEL_CUDA} ${DIR_KERNEL})
 #add_executable(infer ${DIR_BASE})
 
 target_link_libraries(infer sentencepiece glog::glog gtest gtest_main pthread cudart armadillo)
